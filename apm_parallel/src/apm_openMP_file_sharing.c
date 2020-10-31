@@ -107,7 +107,7 @@ int main(int argc, char **argv)
 	int *n_matches;
 
 	/* Check number of arguments */
-	if (argc < 5)
+	if (argc < 4)
 	{
 		printf("Usage: %s thread_number approximation_factor "
 					 "dna_database pattern1 pattern2 ...\n",
@@ -115,16 +115,13 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	/* Get the number of threads */
-	omp_set_num_threads(atoi(argv[1]));
-
 	/* Get the distance factor */
-	approx_factor = atoi(argv[2]);
+	approx_factor = atoi(argv[1]);
 	/* Grab the filename containing the target text */
-	filename = argv[3];
+	filename = argv[2];
 
 	/* Get the number of patterns that the user wants to search for */
-	nb_patterns = argc - 4;
+	nb_patterns = argc - 3;
 
 	/* Fill the pattern array */
 	pattern = (char **)malloc(nb_patterns * sizeof(char *));
