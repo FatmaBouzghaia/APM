@@ -2,7 +2,7 @@ Go to directory `apm_parallel`
 
 ### To compile
 ```
-  mpicc -o apm_<type> src/apm_<type>.c 
+mpicc -o apm_<type> src/apm_<type>.c 
 ```
 
 ### To run
