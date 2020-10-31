@@ -180,26 +180,22 @@ int main(int argc, char **argv)
    ******/
 	/* Timer start */
 	gettimeofday(&t1, NULL);
-	omp_set_num_threads(6);
 
 	int size_pattern;
 	int *column;
 
-#pragma omp parallel for shared(nb_patterns, n_bytes) private(j, size_pattern, column, i) schedule(dynamic)
+#pragma omp parallel for shared(nb_patterns, n_bytes) private(j, size_pattern, column, i)
 	for (i = 0; i < nb_patterns; i++)
 	{
-		printf("In patterns loop: rank = %d and i = %d \n", omp_get_thread_num(), i);
 		size_pattern = strlen(pattern[i]);
 
 		n_matches[i] = 0;
-		int n_match = 0;
 
 		int distance;
 		int size;
-
+		
 		for (j = 0; j < n_bytes; j++)
 		{
-			// printf("Rank = %d - j = %d\n", omp_get_thread_num(), j);
 			column = (int *)malloc((size_pattern + 1) * sizeof(int));
 			if (column == NULL)
 			{
@@ -223,12 +219,10 @@ int main(int argc, char **argv)
 
 			if (distance <= approx_factor)
 			{
-				n_match++;
+				n_matches[i]++;
 			}
 			free(column);
 		}
-		n_matches[i] += n_match;
-		//printf("pattern[%d] = %s \n", i, pattern[i]);
 	}
 
 	/* Timer stop */
