@@ -10,8 +10,7 @@ cd ..
 cd ..
 
 for i in $(seq 1 48) ; do
-    export OMP_NUM_THREADS=$i
-    t_parallel=$(./apm_OpenMP_file_sharing $DISTANCE $DNA_FILE $DNA_PATTERN  |grep APM |awk '{print $4}')
+    t_parallel=$(./apm_OpenMP_file_sharing $i $DISTANCE $DNA_FILE $DNA_PATTERN  |grep APM |awk '{print $4}')
     if [ $i -eq  1 ]; then
         t_seq=$t_parallel
     fi
